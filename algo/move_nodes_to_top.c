@@ -12,9 +12,9 @@
 
 #include "../push_swap.h"
 
-void	move_both_cheapest_to_top(t_stack_node **a, t_stack_node **b)
+void	move_both_cheapest_to_top(t_lst **a, t_lst **b)
 {
-	t_stack_node	*cheapest_b;
+	t_lst	*cheapest_b;
 
 	cheapest_b = define_cheapest(b);
 	if (cheapest_b->above_median && cheapest_b->target_node->above_median)
@@ -36,9 +36,9 @@ void	move_both_cheapest_to_top(t_stack_node **a, t_stack_node **b)
 	finish_moving_to_top_a(a, b);
 }
 
-void	finish_moving_to_top_b(t_stack_node **b)
+void	finish_moving_to_top_b(t_lst **b)
 {
-	t_stack_node	*cheapest_node_in_b;
+	t_lst	*cheapest_node_in_b;
 
 	cheapest_node_in_b = define_cheapest(b);
 	if (cheapest_node_in_b == *b)
@@ -55,9 +55,9 @@ void	finish_moving_to_top_b(t_stack_node **b)
 	}
 }
 
-void	finish_moving_to_top_a(t_stack_node **a, t_stack_node **b)
+void	finish_moving_to_top_a(t_lst **a, t_lst **b)
 {
-	t_stack_node	*cheapest_b;
+	t_lst	*cheapest_b;
 
 	cheapest_b = define_cheapest(b);
 	if (cheapest_b->target_node == *a)

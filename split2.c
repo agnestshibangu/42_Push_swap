@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   split2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agtshiba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 16:15:42 by agtshiba          #+#    #+#             */
-/*   Updated: 2024/06/13 16:18:26 by agtshiba         ###   ########.fr       */
+/*   Created: 2024/06/18 16:36:16 by agtshiba          #+#    #+#             */
+/*   Updated: 2024/06/18 16:40:21 by agtshiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
-void	free_list(t_lst **head)
+void	split_words(char **out, char *str, char delimiter)
 {
-	t_lst	*current;
-	t_lst	*next;
+	split_and_copy_words(out, str, delimiter);
+}
 
-	current = *head;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	*head = NULL;
+char	**my_split(char *str, char delimiter)
+{
+	int		wc;
+	char	**out;
+
+	wc = count_words(str, delimiter);
+	out = allocate_words(wc);
+	if (!out)
+		return (NULL);
+	split_words(out, str, delimiter);
+	return (out);
 }

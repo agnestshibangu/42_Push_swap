@@ -6,26 +6,34 @@
 /*   By: agtshiba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:35:17 by agtshiba          #+#    #+#             */
-/*   Updated: 2024/06/13 16:45:22 by agtshiba         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:37:54 by agtshiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	push_a_nodes_to_b_above_moy(t_stack_node **a, t_stack_node **b)
+int	define_moy(t_lst **a)
 {
-	long min;
-	long max;
-	long moy;
-	int	i;
-	int	stack_len;
-	t_stack_node	*current_in_a;
+	long			min;
+	long			max;
+	long			average;
 
-	if (!a || !*a)
-		return ;
 	min = find_min(a)->nbr;
 	max = find_maxi(a)->nbr;
-	moy = (min + max) / 2;
+	average = (min + max) / 2;
+	return (average);
+}
+
+void	push_a_nodes_to_b_above_moy(t_lst **a, t_lst **b)
+{
+	int				i;
+	int				stack_len;
+	long			moy;
+	t_lst	*current_in_a;
+
+	moy = define_moy(a);
+	if (!a || !*a)
+		return ;
 	stack_len = list_size(a);
 	i = 0;
 	while (i < stack_len)
@@ -39,7 +47,7 @@ void	push_a_nodes_to_b_above_moy(t_stack_node **a, t_stack_node **b)
 	}
 }
 
-void	push_a_nodes_to_b(t_stack_node **a, t_stack_node **b)
+void	push_a_nodes_to_b(t_lst **a, t_lst **b)
 {
 	int	stack_a_len;
 
@@ -51,7 +59,7 @@ void	push_a_nodes_to_b(t_stack_node **a, t_stack_node **b)
 	}
 }
 
-void	reinitialise_before_next_move(t_stack_node **a, t_stack_node **b)
+void	reinitialise_before_next_move(t_lst **a, t_lst **b)
 {
 	assign_target_node(a, b);
 	define_nodes_position_a_b(a, b);
@@ -59,9 +67,9 @@ void	reinitialise_before_next_move(t_stack_node **a, t_stack_node **b)
 	define_cheapest(b);
 }
 
-void	push_swap(t_stack_node **a, t_stack_node **b)
+void	push_swap(t_lst **a, t_lst **b)
 {
-	t_stack_node	*min_node;
+	t_lst	*min_node;
 
 	push_a_nodes_to_b_above_moy(a, b);
 	push_a_nodes_to_b(a, b);
@@ -83,6 +91,5 @@ void	push_swap(t_stack_node **a, t_stack_node **b)
 		while (*a != min_node)
 			rra(a);
 	}
-	//printf_for_shell_debbug(a, b);
 	free_list(a);
 }

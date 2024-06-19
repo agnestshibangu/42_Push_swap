@@ -12,9 +12,9 @@
 
 #include "../push_swap.h"
 
-void	push(t_stack_node **src, t_stack_node **dst)
+void	push(t_lst **src, t_lst **dst)
 {
-	t_stack_node	*top_src;
+	t_lst	*top_src;
 
 	if (!*src)
 		return ;
@@ -37,14 +37,14 @@ void	push(t_stack_node **src, t_stack_node **dst)
 }
 
 // push a vers b 
-void	pab(t_stack_node **a, t_stack_node **b)
+void	pab(t_lst **a, t_lst **b)
 {
 	push(a, b);
 	ft_printf("pb\n");
 }
 
 // push b vers a
-void	pba(t_stack_node **a, t_stack_node **b)
+void	pba(t_lst **a, t_lst **b)
 {
 	push(b, a);
 	ft_printf("pa\n");

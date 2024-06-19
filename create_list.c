@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agtshiba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 10:38:08 by agtshiba          #+#    #+#             */
-/*   Updated: 2024/06/18 10:42:01 by agtshiba         ###   ########.fr       */
+/*   Created: 2024/06/18 15:52:50 by agtshiba          #+#    #+#             */
+/*   Updated: 2024/06/18 15:54:24 by agtshiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
 
-int	main(int ac, char **av)
+t_lst	*create_list(int ac, char **av)
 {
 	t_lst	*head;
-	t_lst	*b;
-	t_lst	*a;
 
 	head = NULL;
-	b = NULL;
-	a = NULL;
-	head = create_list(ac, av);
-	if (head == NULL)
-		return (0);
-	if (ac < 2)
-		return (0);
-	b = create_stack_b(&b);
-	a = create_stack_a(&head);
-	if (!check_doubles(&a) || !check_valid_caracters(&a))
-		return (0);
-	push_swap(&a, &b);
-	return (0);
+	if (ac < 2 || (ac == 2 && !av[1][0]))
+		return (NULL);
+	else if (ac == 2)
+		create_list_split(&head, ac, av);
+	else if (ac > 2)
+		create_list_normal(&head, ac, av);
+	return (head);
+}
+
+t_lst	*create_stack_a(t_lst **head)
+{
+	t_lst	*a;
+
+	a = *head;
+	return (a);
+}
+
+t_lst	*create_stack_b(t_lst **head)
+{
+	t_lst	*b;
+
+	b = *head;
+	return (b);
 }

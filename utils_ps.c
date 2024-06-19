@@ -1,87 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_ps.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agtshiba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 10:53:01 by agtshiba          #+#    #+#             */
+/*   Updated: 2024/06/19 17:33:28 by agtshiba         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-t_stack_node *find_min(t_stack_node **head)
+long	my_atol(const char *s)
 {
-    t_stack_node *current;
-    t_stack_node *min_node = NULL;
-    
-    current = *head;
-    long int min; // a changer par INT_MIN
-    min = LONG_MAX;
-    while (current != NULL) {
-        if (current->nbr < min)
-        {
-            min = current->nbr;
-            min_node = current;
-        }
-        current = current->next; 
-    }
-    return (min_node);
+	long	res;
+	int		sign;
+
+	res = 0;
+	sign = 1;
+	while (*s && (*s == ' ' || *s == '\n' || *s == '\t'
+			|| *s == '\v' || *s == '\f' || *s == '\r'))
+		s++;
+	if (*s == '-')
+		sign = -1;
+	if (*s == '-' || *s == '+')
+		s++;
+	while (*s && *s >= '0' && *s <= '9')
+	{
+		res = res * 10 + (*s - 48);
+		s++;
+	}
+	return (res * sign);
 }
 
-// t_stack_node *find_maxi(t_stack_node **head)
-// {
-//     t_stack_node *current; 
-//     t_stack_node *max_node = NULL;
-//     long int max; // a changer par INT_MIN
-    
-//     current = *head;
-//     max = LONG_MIN;
-//     while (current != NULL) {
-//         if (current->nbr > max)
-//         {
-//             max = current->nbr;
-//             max_node = current;
-//         }
-           
-//         current = current->next; 
-//     }
-//     return (max_node);
-// }
-
-t_stack_node *find_maxi(t_stack_node **head)
+t_lst	*find_min(t_lst **head)
 {
-    t_stack_node *current; 
-    t_stack_node *max_node = NULL;
-    int max; // Utilisation de int et INT_MIN
+	t_lst	*current;
+	t_lst	*min_node;
+	long int	min;
 
-    current = *head;
-    max = INT_MIN; // Initialisation à INT_MIN
-
-    while (current != NULL) {
-        if (current->nbr > max) {
-            max = current->nbr;
-            max_node = current;
-        }
-        current = current->next; 
-    }
-
-    return max_node; // Retourne le nœud avec la valeur maximale
+	current = *head;
+	min_node = NULL;
+	min = LONG_MAX;
+	while (current != NULL)
+	{
+		if (current->nbr < min)
+		{
+			min = current->nbr;
+			min_node = current;
+		}
+		current = current->next;
+	}
+	return (min_node);
 }
 
-int list_size(t_stack_node **head)
+t_lst	*find_maxi(t_lst **head)
 {
-    t_stack_node *current; 
-    int size;
+	int			max;
+	t_lst		*current;
+	t_lst		*max_node;
 
-    current = *head;
-    size = 0;
-    while (current != NULL) {
-        size++;
-        current = current->next; 
-    }
-    return (size);
-}
-    
-t_stack_node* find_last_node(t_stack_node **headRef)
-{
-    t_stack_node *lastNode;
-
-    lastNode = *headRef;
-    if (headRef == NULL || *headRef == NULL)
-        return NULL;
-    while (lastNode->next != NULL)
-        lastNode = lastNode->next;
-    return lastNode;
+	max_node = NULL;
+	current = *head;
+	max = INT_MIN;
+	while (current != NULL)
+	{
+		if (current->nbr > max)
+		{
+			max = current->nbr;
+			max_node = current;
+		}
+		current = current->next;
+	}
+	return (max_node);
 }
 
+int	list_size(t_lst **head)
+{
+	int			size;
+	t_lst		*current;
+
+	current = *head;
+	size = 0;
+	while (current != NULL)
+	{
+		size++;
+		current = current->next;
+	}
+	return (size);
+}
+
+t_lst	*find_last_node(t_lst **headRef)
+{
+	t_lst	*last_node;
+
+	last_node = *headRef;
+	if (headRef == NULL || *headRef == NULL)
+		return (NULL);
+	while (last_node->next != NULL)
+		last_node = last_node->next;
+	return (last_node);
+}

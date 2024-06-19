@@ -12,9 +12,9 @@
 
 #include "../push_swap.h"
 
-void	rev_rotate(t_stack_node **head)
+void	rev_rotate(t_lst **head)
 {
-	t_stack_node	*last;
+	t_lst	*last;
 
 	if (!*head || !(*head)->next)
 		return ;
@@ -26,19 +26,19 @@ void	rev_rotate(t_stack_node **head)
 	last->next->prev = last;
 }
 
-void	rra(t_stack_node **a)
+void	rra(t_lst **a)
 {
 	rev_rotate(a);
 	ft_printf("rra\n");
 }
 
-void	rrb(t_stack_node **b)
+void	rrb(t_lst **b)
 {
 	rev_rotate(b);
 	ft_printf("rrb\n");
 }
 
-void	rrr(t_stack_node **a, t_stack_node **b)
+void	rrr(t_lst **a, t_lst **b)
 {
 	rev_rotate(a);
 	rev_rotate(b);

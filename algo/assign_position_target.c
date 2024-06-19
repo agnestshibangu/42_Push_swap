@@ -6,49 +6,53 @@
 /*   By: agtshiba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:36:13 by agtshiba          #+#    #+#             */
-/*   Updated: 2024/06/13 15:47:57 by agtshiba         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:20:19 by agtshiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	assign_target_node(t_stack_node **a, t_stack_node **b)
-{	
-	t_stack_node	*current_in_a;
-	t_stack_node	*current_in_b;
-	t_stack_node	*target_node;
-	long		best_match;
+t_lst	*find_best_match(t_lst **a, t_lst *b_node)
+{
+	t_lst	*current_in_a;
+	t_lst	*target_node;
+	long			best_match;
 
-	current_in_a = *a;
-	current_in_b = *b;
 	target_node = NULL;
+	best_match = LONG_MAX;
+	current_in_a = *a;
+	while (current_in_a)
+	{
+		if (current_in_a->nbr > b_node->nbr && current_in_a->nbr < best_match)
+		{
+			best_match = current_in_a->nbr;
+			target_node = current_in_a;
+		}
+		current_in_a = current_in_a->next;
+	}
+	if (best_match == LONG_MAX)
+		return (find_min(a));
+	else
+		return (target_node);
+}
+
+void	assign_target_node(t_lst **a, t_lst **b)
+{
+	t_lst	*current_in_b;
+
+	current_in_b = *b;
 	while (current_in_b)
 	{
-		best_match = LONG_MAX;
-		current_in_a = *a;
-		while (current_in_a)
-		{
-			if (current_in_a->nbr > current_in_b->nbr 
-				&& current_in_a->nbr < best_match)
-			{
-				best_match = current_in_a->nbr;
-				target_node = current_in_a;
-			}
-			current_in_a = current_in_a->next;
-		}
-		if (LONG_MAX == best_match)
-			current_in_b->target_node = find_min(a);
-		else
-			current_in_b->target_node = target_node;
+		current_in_b->target_node = find_best_match(a, current_in_b);
 		current_in_b = current_in_b->next;
 	}
 }
 
-void	set_current_position(t_stack_node **head)
+void	set_current_position(t_lst **head)
 {
-	t_stack_node	*current;
-	int	i;
-	int	median;
+	t_lst	*current;
+	int				i;
+	int				median;
 
 	current = *head;
 	i = 0;
@@ -65,7 +69,7 @@ void	set_current_position(t_stack_node **head)
 	}
 }
 
-void	define_nodes_position_a_b(t_stack_node **a, t_stack_node **b)
+void	define_nodes_position_a_b(t_lst **a, t_lst **b)
 {
 	set_current_position(a);
 	set_current_position(b);

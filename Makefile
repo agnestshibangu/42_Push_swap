@@ -22,12 +22,13 @@ SRC		= 	actions/push.c \
 			algo/move_nodes_to_top.c \
 			algo/free.c \
 			algo/push_swap.c \
-			debbug_ps.c \
-			initList.c \
+			init_list.c \
+			create_list.c \
 			$(PRINTF_OBJS) \
 			errors.c \
 			main.c \
 			split.c \
+			split2.c \
 			utils_ps.c \
 			
 
